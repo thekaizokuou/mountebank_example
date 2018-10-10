@@ -1,0 +1,40 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "path": "/customer/v1/profiles",
+            "method": "POST"
+          }
+        },
+        {
+          "matches": {
+            "body": {
+              "card_identification": "^USED.*",
+              "request_transaction_id": "^.*"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1003,
+            "header": "This Card already have been used",
+            "description": "This Card already have been used"
+          },
+          "data": {}
+        }
+      }
+    }
+  ]
+}

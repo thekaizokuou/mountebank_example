@@ -1,0 +1,21 @@
+{
+  "and": [
+    {
+      "equals": {
+        "path": "/customer/v1/balances",
+        "method": "POST"
+      }
+    },
+    {
+      "matches": {
+        "body": {
+          "card_identification": "^XY.*",
+          "request_transaction_id": "^.*"
+        },
+        "headers": {
+          "Authorization": "Basic cm9ib3Q6cm9ib3Q="
+        }
+      }
+    }
+  ]
+}

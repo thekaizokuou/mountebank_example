@@ -1,0 +1,42 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "path": "/customer/v1/balances",
+            "method": "POST"
+          }
+        },
+        {
+          "matches": {
+            "body": {
+              "card_identification": "^.*",
+              "request_transaction_id": "^.*"
+            },
+            "headers": {
+              "Authorization": "Basic cm9ib3Q6cm9ib3Q="
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1002,
+            "header": "Card is not exist in system",
+            "description": "Card is not exist in system"
+          }
+        }
+      }
+    }
+  ]
+}

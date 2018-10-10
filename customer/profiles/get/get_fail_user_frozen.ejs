@@ -1,0 +1,36 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "method": "GET"
+          }
+        },
+        {
+          "matches": {
+            "path": "/customer/v1/profiles/.*9999$"
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 500,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1039,
+            "header": "Failed",
+            "description": "User is Frozen"
+          },
+          "data": {}
+        }
+      }
+    }
+  ]
+}

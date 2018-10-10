@@ -1,0 +1,53 @@
+function(request, response) {
+    var jsonResp;
+    
+    if (typeof(response.body) == 'object') {
+        jsonResp = response.body;
+    } else {
+        jsonResp = JSON.parse(response.body);
+    }
+
+    function getTimeStamp() {
+        var date = new Date();
+        var year = String(date.getFullYear());
+        var month = String(date.getMonth());
+        var day = String(date.getDay());
+        var hours = String(date.getHours());
+        var minutes = String(date.getMinutes());
+        var seconds = String(date.getSeconds());
+        var milSeconds = String(date.getMilliseconds());
+        
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        return year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds + "." + milSeconds + "+07:00";
+    }
+
+    function generate_uuid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1)
+          .toUpperCase();
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+	jsonResp['data']['first_name'] = "Adam";
+	jsonResp['data']['last_name'] = "Warlock";
+    jsonResp['data']['card_identification'] = "XY1029384756"
+	jsonResp['data']['create_date'] = getTimeStamp();
+    response.body = JSON.stringify(jsonResp);
+}

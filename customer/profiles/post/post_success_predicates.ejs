@@ -1,0 +1,18 @@
+{
+  "and": [
+    {
+      "equals": {
+        "path": "/customer/v1/profiles",
+        "method": "POST"
+      }
+    },
+    {
+      "matches": {
+        "body": {
+          "card_identification": "^XY.*",
+          "request_transaction_id": "^.*"
+        }
+      }
+    }
+  ]
+}

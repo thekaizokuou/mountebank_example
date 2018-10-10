@@ -1,0 +1,36 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "method": "GET"
+          }
+        },
+        {
+          "matches": {
+            "path": "/customer/v1/profiles/*"
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1023,
+            "header": "Failed",
+            "description": "User not found"
+          },
+          "data": {}
+        }
+      }
+    }
+  ]
+}

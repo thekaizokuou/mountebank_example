@@ -1,0 +1,36 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "method": "GET"
+          }
+        },
+        {
+          "matches": {
+            "path": "/customer/v1/profiles/.*8888$"
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 500,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1038,
+            "header": "Failed",
+            "description": "User is Suspend"
+          },
+          "data": {}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "method": "GET"
+          }
+        },
+        {
+          "matches": {
+            "path": "/customer/v1/profiles/.*7777$"
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 500,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1037,
+            "header": "Failed",
+            "description": "User is Inactive"
+          },
+          "data": {}
+        }
+      }
+    }
+  ]
+}

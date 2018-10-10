@@ -1,0 +1,38 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "path": "/customer/v1/balances",
+            "method": "POST"
+          }
+        },
+        {
+          "matches": {
+            "headers": {
+              "Authorization": "Basic *"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1009,
+            "header": "You didn't have Authorization to get balance",
+            "description": "You didn't have Authorization to get balance"
+          }
+        }
+      }
+    }
+  ]
+}

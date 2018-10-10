@@ -1,0 +1,34 @@
+{
+    "port": "2204",
+    "protocol": "http",
+    "name": "customer_service",
+    "stubs": [
+
+        {
+            "predicates": [ <% include profiles/post/post_success_predicates.ejs %> ],
+            "responses": [ <% include profiles/post/post_success_response.ejs %> ]
+        },
+        <% include profiles/post/post_fail_card_already_used.ejs %>,
+        <% include profiles/post/post_fail_card_not_exist.ejs %>,
+
+        {
+            "predicates": [ <% include profiles/get/get_success_predicates.ejs %> ],
+            "responses": [ <% include profiles/get/get_success_response.ejs %> ]
+        },
+        <% include profiles/get/get_fail_user_dormant.ejs %>,
+        <% include profiles/get/get_fail_user_inactive.ejs %>,
+        <% include profiles/get/get_fail_user_suspend.ejs %>,
+        <% include profiles/get/get_fail_user_frozen.ejs %>,
+        <% include profiles/get/get_fail_not_found_user.ejs %>,
+
+        {
+            "predicates": [ <% include balances/post/post_balance_success_predicates.ejs %> ],
+            "responses": [ <% include balances/post/post_balance_success_response.ejs %> ]
+        },
+        <% include balances/post/post_balance_fail_card_not_exist.ejs %>,
+        <% include balances/post/post_balance_fail_authen.ejs %>,
+        {
+            "responses": [ <% include customer_proxy.ejs %> ]
+        }
+    ]
+}

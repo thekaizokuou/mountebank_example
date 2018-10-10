@@ -1,0 +1,5 @@
+*.log
+*.pid
+*.out
+start_mb_local.bat
+.idea

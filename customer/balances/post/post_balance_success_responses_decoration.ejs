@@ -1,0 +1,25 @@
+function(request, response) {
+    var jsonResp;
+    var jsonReq = JSON.parse(request.body);
+
+    if (typeof(response.body) == 'object') {
+        jsonResp = response.body;
+    } else {
+        jsonResp = JSON.parse(response.body);
+    }
+
+    function generate_uuid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1)
+          .toUpperCase();
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+    jsonResp['data']['request_transaction_id'] = jsonReq['request_transaction_id'];
+    jsonResp['data']['response_uuid'] = generate_uuid();
+    jsonResp['data']['balance'] = parseFloat((Math.random()*1000).toFixed(2));
+    response.body = JSON.stringify(jsonResp);
+}

@@ -18,8 +18,8 @@ function(request, response) {
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
 
-    jsonResp['data']['request_transaction_id'] = jsonReq['request_transaction_id'];
-    jsonResp['data']['response_uuid'] = generate_uuid();
-    jsonResp['data']['balance'] = parseFloat((Math.random()*1000).toFixed(2));
+    jsonResp.data.request_transaction_id = jsonReq.request_transaction_id;
+    jsonResp.data.response_uuid = generate_uuid();
+    jsonResp.data.balance = parseFloat((Math.random()*1000).toFixed(2));
     response.body = JSON.stringify(jsonResp);
 }

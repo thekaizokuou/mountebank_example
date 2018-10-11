@@ -1,0 +1,96 @@
+function(request, response) {
+    var jsonResp;
+    var jsonReq = JSON.parse(request.body);
+
+    if (typeof(response.body) == 'object') {
+        jsonResp = response.body;
+    } else {
+        jsonResp = JSON.parse(response.body);
+    }
+
+    function getTimeStamp() {
+        var date = new Date();
+        var year = String(date.getFullYear());
+        var month = String(date.getMonth());
+        var day = String(date.getDay());
+        var hours = String(date.getHours());
+        var minutes = String(date.getMinutes());
+        var seconds = String(date.getSeconds());
+        var milSeconds = String(date.getMilliseconds());
+        
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        return year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds + "." + milSeconds + "+07:00";
+    }
+
+    function generate_uuid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1)
+          .toUpperCase();
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+    if ("kyc" in jsonReq && jsonReq.kyc) {
+        if (! ("first_name" in jsonReq.kyc) || ! jsonReq.kyc.first_name) {
+            response.statusCode = 400
+            jsonResp.status.code = 1004
+            jsonResp.status.header = "bad request"
+            jsonResp.status.description = "Node kyc.first_name didn't exist or empty"
+            jsonResp.data = {}
+        } else if (! ("last_name" in jsonReq.kyc) || ! jsonReq.kyc.last_name) {
+            response.statusCode = 400
+            jsonResp.status.code = 1004
+            jsonResp.status.header = "bad request"
+            jsonResp.status.description = "Node kyc.last_name didn't exist or empty"
+            jsonResp.data = {}
+        } else if (! ("birthdate" in jsonReq.kyc) || ! jsonReq.kyc.birthdate) {
+            response.statusCode = 400
+            jsonResp.status.code = 1004
+            jsonResp.status.header = "bad request"
+            jsonResp.status.description = "Node kyc.birthdate didn't exist or empty"
+            jsonResp.data = {}
+        } else if (! ("jc" in jsonReq.kyc) || ! jsonReq.kyc.jc) {
+            response.statusCode = 400
+            jsonResp.status.code = 1004
+            jsonResp.status.header = "bad request"
+            jsonResp.status.description = "Node kyc.jc didn't exist or empty"
+            jsonResp.data = {}
+        } else if (jsonResp.status.code==1000) {
+            jsonResp.data.request_transaction_id = jsonReq.request_transaction_id;
+            jsonResp.data.response_uuid = generate_uuid();
+            jsonResp.data.user_id = jsonReq.user_id;
+            jsonResp.data.create_date = getTimeStamp();
+
+            jsonResp.data.kyc.first_name = jsonReq.kyc.first_name;
+            jsonResp.data.kyc.last_name = jsonReq.kyc.last_name;
+            jsonResp.data.kyc.birthdate = jsonReq.kyc.birthdate;
+            jsonResp.data.kyc.jc = jsonReq.kyc.jc;
+        } else {
+            jsonResp.data = {}
+        }
+    } else {
+        response.statusCode = 400
+        jsonResp.status.code = 1004
+        jsonResp.status.header = "bad request"
+        jsonResp.status.description = "Node kyc didn't exist"
+        jsonResp.data = {}
+    }
+
+    response.body = JSON.stringify(jsonResp);
+}

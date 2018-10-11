@@ -46,10 +46,37 @@ function(request, response) {
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
 
-    jsonResp.data.request_transaction_id = jsonReq.request_transaction_id;
-    jsonResp.data.response_uuid = generate_uuid();
-    jsonResp.data.first_name = jsonReq.first_name;
-    jsonResp.data.last_name = jsonReq.last_name;
-    jsonResp.data.create_date = getTimeStamp();
+    if ("address" in jsonReq && jsonReq.address) {
+        if (! ("en" in jsonReq.address) || !("address1" in jsonReq.address.en)) {
+            response.statusCode = 400
+            jsonResp.status.code = 1004
+            jsonResp.status.header = "bad request"
+            jsonResp.status.description = "Node address.en didn't exist"
+            jsonResp.data = {}
+        } else if (! ("th" in jsonReq.address) || !("address1" in jsonReq.address.th)) {
+            response.statusCode = 400
+            jsonResp.status.code = 1004
+            jsonResp.status.header = "bad request"
+            jsonResp.status.description = "Node address.th didn't exist"
+            jsonResp.data = {}
+        } else if (jsonResp.status.code==1000) {
+            jsonResp.data.request_transaction_id = jsonReq.request_transaction_id;
+            jsonResp.data.response_uuid = generate_uuid();
+            jsonResp.data.user_id = jsonReq.user_id;
+            jsonResp.data.create_date = getTimeStamp();
+
+            jsonResp.data.address.en = jsonReq.address.en;
+            jsonResp.data.address.th = jsonReq.address.th;
+        } else {
+            jsonResp.data = {}
+        }
+    } else {
+        response.statusCode = 400
+        jsonResp.status.code = 1004
+        jsonResp.status.header = "bad request"
+        jsonResp.status.description = "Node address didn't exist"
+        jsonResp.data = {}
+    }
+
     response.body = JSON.stringify(jsonResp);
 }

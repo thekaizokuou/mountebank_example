@@ -1,0 +1,29 @@
+{
+  "and": [
+    {
+      "equals": {
+        "path": "/customer/v1/kyc",
+        "method": "POST",
+        "body" : {
+          "kyc" : {
+            "first_name": "robot",
+            "last_name": "robot",
+            "birthdate": "24/03/2540",
+            "jc": "JC1234567890"
+          }
+        }
+      }
+    },
+    {
+      "matches": {
+        "body": {
+          "user_id": ".*1234$",
+          "request_transaction_id": "^.*"
+        },
+        "headers": {
+          "Authorization": "Basic cm9ib3Q6cm9ib3Q="
+        }
+      }
+    }
+  ]
+}

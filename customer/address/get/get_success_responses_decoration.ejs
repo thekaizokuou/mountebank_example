@@ -1,0 +1,28 @@
+function(request, response) {
+    var jsonResp;
+
+    if (typeof(response.body) == 'object') {
+        jsonResp = response.body;
+    } else {
+        jsonResp = JSON.parse(response.body);
+    }
+
+    if (("accept-language" in request.headers) && (request.headers["accept-language"]=='th')) {
+        jsonResp.data.address.address1 = "9 ถนนรัชดาภิเษก";
+        jsonResp.data.address.address2 = "";
+        jsonResp.data.address.sub_district = "แขวงจตุจักร";
+        jsonResp.data.address.district = "เขตจตุจักร";
+        jsonResp.data.address.province = "กรุงเทพฯ";
+        jsonResp.data.address.postcode = "10900";
+    } else {
+        jsonResp.data.address.address1 = "9 Ratchadaphisek Rd";
+        jsonResp.data.address.address2 = "";
+        jsonResp.data.address.sub_district = "Chatuchak";
+        jsonResp.data.address.district = "Chatuchak";
+        jsonResp.data.address.province = "Bangkok";
+        jsonResp.data.address.postcode = "10900";
+    }
+
+    jsonResp.data.user_id = request.path.split('/address/').slice(-1)[0];
+    response.body = JSON.stringify(jsonResp);
+}

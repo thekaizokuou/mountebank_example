@@ -1,0 +1,21 @@
+{
+  "is": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": {
+        "code": 1000,
+        "header": "Success",
+        "description": "Success"
+      },
+      "data": {
+        "address": {}
+      }
+    }
+  },
+  "_behaviors": {
+    "decorate": "<%- stringify(filename, 'customer/address/post/post_success_responses_decoration.ejs') %>"
+  }
+}

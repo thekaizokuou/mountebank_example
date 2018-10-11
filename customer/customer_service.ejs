@@ -22,11 +22,33 @@
         <% include profiles/get/get_fail_not_found_user.ejs %>,
 
         {
+            "predicates": [ <% include address/post/post_success_predicates.ejs %> ],
+            "responses": [ <% include address/post/post_success_response.ejs %> ]
+        },
+        <% include address/post/post_fail_user_not_exist.ejs %>,
+
+        {
+            "predicates": [ <% include address/get/get_success_predicates.ejs %> ],
+            "responses": [ <% include address/get/get_success_response.ejs %> ]
+        },
+        <% include address/get/get_fail_not_found_user.ejs %>,
+
+        {
             "predicates": [ <% include balances/post/post_balance_success_predicates.ejs %> ],
             "responses": [ <% include balances/post/post_balance_success_response.ejs %> ]
         },
         <% include balances/post/post_balance_fail_card_not_exist.ejs %>,
         <% include balances/post/post_balance_fail_authen.ejs %>,
+        
+        {
+            "predicates": [ <% include kyc/post/post_kyc_success_predicates.ejs %> ],
+            "responses": [ <% include kyc/post/post_kyc_success_response.ejs %> ]
+        },
+        <% include kyc/post/post_kyc_fail_kyc_not_matched.ejs %>,
+        <% include kyc/post/post_kyc_fail_user_not_exist.ejs %>,
+        <% include kyc/post/post_kyc_fail_user_not_exist.ejs %>,
+        <% include kyc/post/post_kyc_fail_authen.ejs %>,
+
         {
             "responses": [ <% include customer_proxy.ejs %> ]
         }

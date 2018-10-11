@@ -1,0 +1,47 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "path": "/customer/v1/kyc",
+            "method": "POST"
+          }
+        },
+        {
+          "matches": {
+            "body": {
+              "user_id": "^.*"
+            },
+            "headers": {
+              "Authorization": "Basic cm9ib3Q6cm9ib3Q="
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1002,
+            "header": "User ID is not exist in system",
+            "description": "User ID is not exist in system"
+          },
+          "data": {
+            "kyc": {}
+          }
+        }
+      },
+      "_behaviors": {
+        "decorate": "<%- stringify(filename, 'customer/kyc/post/post_kyc_responses_decoration.ejs') %>"
+      }
+    }
+  ]
+}

@@ -45,9 +45,9 @@ function(request, response) {
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
 
-	jsonResp['data']['first_name'] = "Adam";
-	jsonResp['data']['last_name'] = "Warlock";
-    jsonResp['data']['card_identification'] = "XY1029384756"
-	jsonResp['data']['create_date'] = getTimeStamp();
+	jsonResp.data.first_name = "Adam";
+	jsonResp.data.last_name = "Warlock";
+    jsonResp.data.card_identification = "XY1029384756"
+	jsonResp.data.create_date = getTimeStamp();
     response.body = JSON.stringify(jsonResp);
 }

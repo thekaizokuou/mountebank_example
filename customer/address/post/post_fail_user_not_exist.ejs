@@ -1,0 +1,45 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "path": "/customer/v1/address",
+            "method": "POST"
+          }
+        },
+        {
+          "matches": {
+            "body": {
+              "user_id": "^.*",
+              "request_transaction_id": "^.*"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": {
+            "code": 1002,
+            "header": "User ID is not exist in system",
+            "description": "User ID is not exist in system"
+          },
+          "data": {
+            "address": {}
+          }
+        }
+      },
+      "_behaviors": {
+        "decorate": "<%- stringify(filename, 'customer/address/post/post_success_responses_decoration.ejs') %>"
+      }
+    }
+  ]
+}
